@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
-    tools:context=".ui.MainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/purple_white"
+    tools:context=".fragment.GeneralFragment">
+
 
     <TextView
         android:id="@+id/hello"
@@ -28,10 +29,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hello">
+        app:layout_constraintTop_toBottomOf="@id/hello">
 
         <TextView
             android:id="@+id/city"
@@ -57,37 +59,36 @@
 
         <TextView
             android:id="@+id/o"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_below="@id/city"
             android:layout_toRightOf="@id/degree"
-            android:fontFamily="@font/manrope_regular"
-            android:text="o"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_25sdp"></TextView>
-
-        <TextView
-            android:id="@+id/type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/city"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_toRightOf="@id/o"
-            android:fontFamily="@font/manrope_bold"
-            android:text="C"
             android:textColor="@color/white"
-            android:textSize="@dimen/_25sdp"></TextView>
+            android:textSize="@dimen/_25sdp"
+            android:fontFamily="@font/manrope_regular"
+            android:text="o"></TextView>
+        <TextView
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/type"
+            android:layout_below="@id/city"
+            android:layout_toRightOf="@id/o"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_25sdp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/manrope_bold"
+            android:text="C"></TextView>
 
         <TextView
+            android:gravity="center_horizontal"
             android:id="@+id/status"
+            android:fontFamily="@font/manrope_regular"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/white"
+            android:layout_below="@id/degree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/degree"
-            android:fontFamily="@font/manrope_regular"
-            android:gravity="center_horizontal"
-            android:text="Partly Cloudy"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_20sdp"></TextView>
+            android:text="Partly Cloudy"></TextView>
 
         <Button
 
@@ -100,22 +101,44 @@
             android:layout_marginStart="157dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="139dp"
+            android:textColor="@color/white"
             android:text="See Details"
-            android:textAllCaps="false"
-            android:textColor="@color/white"></Button>
+            android:textAllCaps="false"></Button>
     </RelativeLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_forecast"
+    <ScrollView
+        android:background="@color/white_grey"
+        app:layout_constraintTop_toTopOf="@id/btn_see_details"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_weather"
-        app:layout_constraintVertical_bias="1.0">
+        tools:ignore="NotSibling">
+        <TextView
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/manrope_regular"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Partly Cloudy"></TextView>
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <TextView
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/manrope_regular"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Partly Cloudy"></TextView>
+
+        <TextView
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/manrope_regular"
+            android:textSize="@dimen/_20sdp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Partly Cloudy"></TextView>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
