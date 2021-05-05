@@ -17,6 +17,7 @@ interface WeatherForecastAPI {
         appid:String = Constants.API_KEY
     ): CurrentWeatherResponse
 
+    @GET("/data/2.5/forecast/daily")
     suspend fun getDailyWeather(
         @Query("q")
         q:String,

@@ -7,4 +7,7 @@ import hiutrun.example.utils.Constants
 class WeatherRepository(private val apiHelper:ApiHelper) {
     suspend fun getCurrentWeather(q:String)=
         apiHelper.getCurrentWeather(q)
+
+    suspend fun getDailyWeather(q:String)=
+        apiHelper.getDailyWeatherForecast(q)
 }

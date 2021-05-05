@@ -25,4 +25,13 @@ class WeatherViewModel(
         }
     }
 
+    fun getDailyWeatherForecast(q:String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = weatherRepository.getDailyWeather(q)))
+        }catch (exception:Exception){
+            emit(Resource.error(data = null,message = exception.message?:"Error Occurred"))
+        }
+    }
+
 }
