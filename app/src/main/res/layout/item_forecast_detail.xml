@@ -28,7 +28,7 @@
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/ic_sunny"></ImageView>
             <TextView
-                android:scrollbarThumbVertical="tv_degree"
+                android:id="@+id/tv_degree"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"

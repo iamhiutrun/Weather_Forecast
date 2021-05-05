@@ -22,7 +22,7 @@ class RetrofitInstance {
         }
 
         val api by lazy{
-            retrofit.create(CurrentWeatherAPI::class.java)
+            retrofit.create(WeatherForecastAPI::class.java)
         }
     }
 }
