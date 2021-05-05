@@ -29,12 +29,23 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel:WeatherViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupViewModel()
+        updateWeather()
+    }
 
-        btn_see_details.setOnClickListener {
+
+    private fun setupViewModel(){
+        viewModel = ViewModelProviders.of(
+        this,
+                WeatherModelFactory(ApiHelper(RetrofitInstance.api))
+        ).get(WeatherViewModel::class.java)
+    }
+
+        private fun updateWeather(){
             viewModel.getCurrentWeather("hanoi").observe(this, Observer {
                 it?.let { resource ->
                     when (resource.status) {
@@ -54,18 +65,12 @@ class MainActivity : AppCompatActivity() {
             })
         }
 
-    }
-
-    private fun setupViewModel(){
-        viewModel = ViewModelProviders.of(
-        this,
-                WeatherModelFactory(ApiHelper(RetrofitInstance.api))
-        ).get(WeatherViewModel::class.java)
-    }
-
     private fun retrieveWeather(weatherResponse: CurrentWeatherResponse){
         tv_status.text = weatherResponse.weather[0].description!!
         tv_degree.text = (weatherResponse.main.temp.toInt() - 273).toString()
+        tv_humidity.text = weatherResponse.main.humidity.toString() +" %"
+        tv_wind.text = weatherResponse.wind.speed.toString() +" Km/h"
+        tv_other.text = weatherResponse.visibility.toString()
     }
 
 
