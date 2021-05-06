@@ -1,60 +1,102 @@
 package hiutrun.example.myweather.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import hiutrun.example.myweather.R
+import hiutrun.example.myweather.data.api.ApiHelper
+import hiutrun.example.myweather.data.api.RetrofitInstance
+import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
+import hiutrun.example.myweather.ui.base.WeatherModelFactory
+import hiutrun.example.myweather.ui.main.adapter.ForecastAdapter
+import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
+import hiutrun.example.utils.Status
+import kotlinx.android.synthetic.main.fragment_general.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [GeneralFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class GeneralFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class GeneralFragment : Fragment(R.layout.fragment_general) {
+
+    private lateinit var viewModel: WeatherViewModel
+    private var forecastAdapter: ForecastAdapter = ForecastAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        setupViewModel()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_general, container, false)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        updateCurrentWeather()
+        rv_forecast.setHasFixedSize(true)
+        rv_forecast.layoutManager = LinearLayoutManager(context)
+        updateDailyWeather()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment GeneralFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            GeneralFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProviders.of(
+            this,
+            WeatherModelFactory(ApiHelper(RetrofitInstance.api))
+        ).get(WeatherViewModel::class.java)
+    }
+
+    private fun updateCurrentWeather() {
+        Log.d("ABC", "updateCurrentWeather: hihi")
+        viewModel.getCurrentWeather("hanoi").observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { weather ->
+                            retrieveWeather(weather)
+                        }
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+
+                    }
                 }
             }
+        })
     }
+
+    private fun updateDailyWeather(){
+        viewModel.getDailyWeatherForecast("hanoi").observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.let { weather ->
+                            Log.d("ABC", "updateDailyWeather: DONE")
+                            forecastAdapter.setData(weather.list)
+                            rv_forecast.adapter =  forecastAdapter
+                        }
+                    }
+                    Status.ERROR -> {
+                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+
+                    }
+                }
+            }
+        })
+    }
+    private fun retrieveWeather(weatherResponse: CurrentWeatherResponse) {
+        tv_status.text = weatherResponse.weather[0].description
+        tv_degree.text = (weatherResponse.main.temp.toInt() - 273).toString()
+        tv_humidity.text = weatherResponse.main.humidity.toString() + " %"
+        tv_wind.text = weatherResponse.wind.speed.toString() + " Km/h"
+        tv_other.text = weatherResponse.visibility.toString()
+    }
+
 }

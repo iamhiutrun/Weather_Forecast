@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.models.daily.WeatherForcast
-import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.item_forecast.view.*
 
 class ForecastAdapter(
     private var list: ArrayList<WeatherForcast> = ArrayList<WeatherForcast>()
@@ -26,11 +26,11 @@ class ForecastAdapter(
     }
 
     override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
-        val forcast = list?.get(position)
-        holder.itemView.tv_degree.text = (forcast?.temp?.max?.toInt().minus(273)).toString() +" C"
+        val forcast = list.get(position)
+        holder.itemView.tv_degree.text = (forcast.temp.max.toInt().minus(273)).toString() +" C"
     }
 
     override fun getItemCount(): Int {
-        return list?.size?:0
+        return list.size
     }
 }
