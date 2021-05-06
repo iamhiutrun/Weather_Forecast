@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.models.daily.WeatherForcast
 import kotlinx.android.synthetic.main.item_forecast.view.*
+import java.text.SimpleDateFormat
 
 class ForecastAdapter(
     private var list: ArrayList<WeatherForcast> = ArrayList<WeatherForcast>()
 ) : RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder>(){
+    private val simpleDateFormat1 = SimpleDateFormat("MMM dd yyyy")
+    private val simpleDateFormat2 = SimpleDateFormat("E")
 
     inner class ForecastViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
 
@@ -27,6 +30,8 @@ class ForecastAdapter(
 
     override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
         val forcast = list.get(position)
+        holder.itemView.tv_date.text = simpleDateFormat1.format(forcast.dt.toDouble()*1000)
+        holder.itemView.tv_day.text = simpleDateFormat2.format(forcast.dt.toDouble()*1000)
         holder.itemView.tv_degree.text = (forcast.temp.max.toInt().minus(273)).toString() +" C"
     }
 
