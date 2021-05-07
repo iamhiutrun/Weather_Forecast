@@ -99,7 +99,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/manrope_bold"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_20sdp"
+                            android:textSize="@dimen/_15sdp"
                             android:text="34 %"></TextView>
                         <TextView
                             android:id="@+id/tv_humidity_status"
@@ -139,7 +139,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/manrope_bold"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_20sdp"
+                            android:textSize="@dimen/_15sdp"
                             android:text="2 km/h"></TextView>
                         <TextView
                             android:id="@+id/tv_wind_status"
@@ -179,7 +179,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/manrope_bold"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_20sdp"
+                            android:textSize="@dimen/_15sdp"
                             android:text="10 atm"></TextView>
                         <TextView
                             android:id="@+id/tv_pressure_status"
