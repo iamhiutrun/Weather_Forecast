@@ -16,6 +16,7 @@ import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
 import hiutrun.example.myweather.data.models.daily.DailyWeatherForecastRespone
 import hiutrun.example.myweather.ui.base.WeatherModelFactory
 import hiutrun.example.myweather.ui.main.adapter.ForecastAdapter
+//import hiutrun.example.myweather.ui.main.adapter.ForecastAdapter
 import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
 import hiutrun.example.utils.Status
 import kotlinx.android.synthetic.main.fragment_general.*
@@ -36,8 +37,8 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         updateCurrentWeather()
-        rv_forecast.setHasFixedSize(true)
-        rv_forecast.layoutManager = LinearLayoutManager(context)
+        rv_forecast_daily.setHasFixedSize(true)
+        rv_forecast_daily.layoutManager = LinearLayoutManager(context)
         updateDailyWeather()
 
     }
@@ -76,12 +77,8 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data?.let { weather ->
-                            val action = GeneralFragmentDirections.actionGeneralFragmentToDetailFragment(weather)
-                            btn_see_details.setOnClickListener {
-                                findNavController().navigate(action)
-                            }
                             forecastAdapter.setData(weather.list)
-                            rv_forecast.adapter =  forecastAdapter
+                            rv_forecast_daily.adapter =  forecastAdapter
                             //this.weather = weather
                         }
                     }
@@ -98,9 +95,10 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
     private fun retrieveWeather(weatherResponse: CurrentWeatherResponse) {
         tv_status.text = weatherResponse.weather[0].description
         tv_degree.text = (weatherResponse.main.temp.toInt() - 273).toString()
-        tv_humidity.text = weatherResponse.main.humidity.toString() + " %"
-        tv_wind.text = weatherResponse.wind.speed.toString() + " Km/h"
-        tv_other.text = weatherResponse.visibility.toString()
+        tv_humidity_number.text = weatherResponse.main.humidity.toString() + " %"
+        tv_sunrise_time.text = weatherResponse.sys.sunset.toString()
+        tv_sunset_time.text = weatherResponse.sys.sunrise.toString()
+        tv_wind_number.text = weatherResponse.wind.speed.toString() + " Km/h"
     }
 
 
