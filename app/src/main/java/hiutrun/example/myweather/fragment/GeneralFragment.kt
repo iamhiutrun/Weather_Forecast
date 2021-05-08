@@ -2,32 +2,28 @@ package hiutrun.example.myweather.fragment
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Gravity.apply
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.api.ApiHelper
 import hiutrun.example.myweather.data.api.RetrofitInstance
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
-import hiutrun.example.myweather.data.models.daily.DailyWeatherForecastRespone
 import hiutrun.example.myweather.ui.base.WeatherModelFactory
 import hiutrun.example.myweather.ui.main.adapter.ForecastAdapter
-//import hiutrun.example.myweather.ui.main.adapter.ForecastAdapter
 import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
 import hiutrun.example.utils.Status
 import kotlinx.android.synthetic.main.fragment_general.*
-import okhttp3.internal.wait
+import kotlinx.android.synthetic.main.fragment_general.tv_degree_min
+import java.text.SimpleDateFormat
 
 
 class GeneralFragment : Fragment(R.layout.fragment_general) {
-
+    private var timeFormat = SimpleDateFormat("HH:mm")
     private lateinit var viewModel: WeatherViewModel
     private var forecastAdapter: ForecastAdapter = ForecastAdapter()
-    private lateinit var weather:DailyWeatherForecastRespone
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,12 +47,12 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
     }
 
     private fun updateCurrentWeather() {
-        Log.d("ABC", "updateCurrentWeather: hihi")
         viewModel.getCurrentWeather("hanoi").observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data?.let { weather ->
+                            Log.d("ABC", "updateCurrentWeather: hic ")
                             retrieveWeather(weather)
                         }
                     }
@@ -72,14 +68,13 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
     }
 
     private fun updateDailyWeather(){
-        viewModel.getDailyWeatherForecast("hanoi").observe(viewLifecycleOwner, Observer {
+        viewModel.getAllData("21.0245","105.8412").observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data?.let { weather ->
-                            forecastAdapter.setData(weather.list)
+                            forecastAdapter.setData(weather.daily)
                             rv_forecast_daily.adapter =  forecastAdapter
-                            //this.weather = weather
                         }
                     }
                     Status.ERROR -> {
@@ -93,16 +88,37 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
         })
     }
     private fun retrieveWeather(weatherResponse: CurrentWeatherResponse) {
+//        when(weatherResponse.weather[0].main){
+//            "Clouds" -> {
+//                layout_color.setBackgroundColor(R.drawable.gradient_sunny)
+//                Log.d("ABC", "retrieveWeather: Hello")
+//            }
+//            "Rain" ->  {
+//                layout_color.setBackgroundColor(R.drawable.gradient_sunny)
+//            }
+//             else ->  {
+//                 layout_color.setBackgroundColor(R.drawable.gradient_sunny)
+//             }
+//        }
+//        if(weatherResponse.weather[0].main == "Clouds"){
+//            layout_color.setBackgroundColor(R.drawable.gradient_sunny)
+//        }
+//        else if(weatherResponse.weather[0].main == "Rains"){
+//            layout_color.setBackgroundColor(R.drawable.gradient_rainy)
+//        }
+//        else{
+//            layout_color.setBackgroundColor(R.drawable.gradient_sunny)
+//        }
+
         tv_status.text = weatherResponse.weather[0].description
-        tv_degree.text = (weatherResponse.main.temp.toInt() - 273).toString()
+        tv_degree_max.text = (weatherResponse.main.temp_max.toInt()-273).toString()
+        tv_degree_min.text = (weatherResponse.main.temp_min.toInt() - 273).toString()
+        tv_feels_like_degree.text = (weatherResponse.main.feels_like.toInt() - 273).toString()
+        tv_degree.text = (weatherResponse.main.temp.toInt() - 273).toString()+"°"
         tv_humidity_number.text = weatherResponse.main.humidity.toString() + " %"
-        tv_sunrise_time.text = weatherResponse.sys.sunset.toString()
-        tv_sunset_time.text = weatherResponse.sys.sunrise.toString()
+        tv_sunrise_time.text = timeFormat.format(weatherResponse.sys.sunrise*1000)
+        tv_sunset_time.text = timeFormat.format(weatherResponse.sys.sunset*1000)
         tv_wind_number.text = weatherResponse.wind.speed.toString() + " Km/h"
-    }
-
-
-    private fun retrieveDailyWeather(weatherResponse: DailyWeatherForecastRespone){
-
+        tv_pressure_number.text = weatherResponse.main.pressure.toString() +" hPa"
     }
 }

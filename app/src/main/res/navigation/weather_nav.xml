@@ -11,19 +11,8 @@
         android:label="fragment_general"
         tools:layout="@layout/fragment_general" >
         <action
-            android:id="@+id/action_generalFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-        <action
             android:id="@+id/action_generalFragment_to_settingFragment"
             app:destination="@id/settingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/detailFragment"
-        android:name="hiutrun.example.myweather.fragment.DetailFragment"
-        android:label="DetailFragment" >
-        <argument
-            android:name="weatherForecast"
-            app:argType="hiutrun.example.myweather.data.models.daily.DailyWeatherForecastRespone" />
     </fragment>
     <fragment
         android:id="@+id/settingFragment"

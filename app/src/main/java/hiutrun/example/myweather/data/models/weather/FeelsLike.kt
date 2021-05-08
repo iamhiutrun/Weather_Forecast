@@ -1,4 +1,4 @@
-package hiutrun.example.myweather.data.models.daily
+package hiutrun.example.myweather.data.models.weather
 
 data class FeelsLike(
     val day: Double,

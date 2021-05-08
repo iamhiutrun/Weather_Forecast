@@ -8,6 +8,9 @@ class WeatherRepository(private val apiHelper:ApiHelper) {
     suspend fun getCurrentWeather(q:String)=
         apiHelper.getCurrentWeather(q)
 
-    suspend fun getDailyWeather(q:String)=
-        apiHelper.getDailyWeatherForecast(q)
+//    suspend fun getDailyWeather(q:String)=
+//        apiHelper.getDailyWeatherForecast(q)
+
+    suspend fun getAllData(lat:String,lon:String) =
+        apiHelper.getAllData(lat,lon)
 }

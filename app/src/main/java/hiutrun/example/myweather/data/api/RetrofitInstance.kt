@@ -15,11 +15,12 @@ class RetrofitInstance {
                 .addInterceptor(logging)
                 .build()
             Retrofit.Builder()
-                .baseUrl(Constants.CURRENT_URL)
+                .baseUrl(Constants.API1_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
         }
+
 
         val api by lazy{
             retrofit.create(WeatherForecastAPI::class.java)

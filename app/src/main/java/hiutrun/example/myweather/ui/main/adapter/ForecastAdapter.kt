@@ -5,23 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hiutrun.example.myweather.R
-import hiutrun.example.myweather.data.models.daily.WeatherForcast
+import hiutrun.example.myweather.data.models.weather.Daily
 import kotlinx.android.synthetic.main.item_forecast.view.*
 import kotlinx.android.synthetic.main.item_forecast.view.tv_day
 import kotlinx.android.synthetic.main.item_forecast_detail.view.*
 import java.text.SimpleDateFormat
 
 class ForecastAdapter(
-    private var list: ArrayList<WeatherForcast> = ArrayList<WeatherForcast>()
+    private var list: ArrayList<Daily> = ArrayList<Daily>()
 ) : RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder>(){
-    private val simpleDateFormat = SimpleDateFormat("E")
+    private val simpleDateFormat = SimpleDateFormat("EEEE")
 
     inner class ForecastViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
 
     }
 
-    fun setData(list: List<WeatherForcast>){
-        this.list = list as ArrayList<WeatherForcast>
+    fun setData(list: List<Daily>){
+        this.list = list as ArrayList<Daily>
         //list.removeAt(0)
     }
 
