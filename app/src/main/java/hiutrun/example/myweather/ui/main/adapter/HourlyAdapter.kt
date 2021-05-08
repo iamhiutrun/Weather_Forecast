@@ -6,15 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.models.weather.Hourly
-import kotlinx.android.synthetic.main.item_forecast.view.*
-import kotlinx.android.synthetic.main.item_forecast_detail.view.*
-import kotlinx.android.synthetic.main.item_forecast_detail.view.tv_day
+import kotlinx.android.synthetic.main.item_hourly_forecast.view.*
 import java.text.SimpleDateFormat
 
-class DetailForecastAdapter(
+class HourlyAdapter(
     private var list: ArrayList<Hourly> = ArrayList<Hourly>()
-) : RecyclerView.Adapter<DetailForecastAdapter.ForecastViewHolder>(){
-    private val simpleDateFormat = SimpleDateFormat("E")
+) : RecyclerView.Adapter<HourlyAdapter.ForecastViewHolder>(){
+    private val simpleDateFormat = SimpleDateFormat("HH:mm")
 
     inner class ForecastViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
 
@@ -26,14 +24,13 @@ class DetailForecastAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastViewHolder {
         return ForecastViewHolder(LayoutInflater.from(parent.context)
-                                .inflate(R.layout.item_forecast_detail,parent,false))
+                                .inflate(R.layout.item_hourly_forecast,parent,false))
     }
 
     override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
-//        val forcast = list[position]
-//        holder.itemView.tv_day.text = simpleDateFormat.format(forcast.dt.toDouble()*1000)
-//        holder.itemView.im_weather.setImageResource(R.drawable.ic_arrow_down)
-//        holder.itemView.tv_degree.text = (forcast.temp.max.toInt().minus(273)).toString() +" C"
+        val forcast = list[position]
+        holder.itemView.tv_day.text = simpleDateFormat.format(forcast.dt.toDouble()*1000)
+        holder.itemView.tv_degree.text = (forcast.temp.toInt().minus(273)).toString() +"°"
     }
 
     override fun getItemCount(): Int {

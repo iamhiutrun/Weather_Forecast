@@ -16,7 +16,7 @@
         android:fontFamily="@font/manrope_bold"
         android:textColor="@color/white"
         android:text="Sunday"
-        android:textSize="@dimen/_17sdp"
+        android:textSize="@dimen/_13sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -39,19 +39,19 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/manrope_bold"
         android:text="31 "
-        android:textSize="@dimen/_15ssp"
-        android:layout_marginEnd="@dimen/_3sdp"
+        android:textSize="@dimen/_13ssp"
+        android:layout_marginEnd="@dimen/_10sdp"
         app:layout_constraintEnd_toStartOf="@+id/tv_degree_min"
         app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/white_grey"
         android:id="@+id/tv_degree_min"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/manrope_bold"
         android:text="13 "
-        android:textSize="@dimen/_15ssp"
+        android:textSize="@dimen/_13ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"></TextView>
 

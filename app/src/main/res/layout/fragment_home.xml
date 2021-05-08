@@ -2,22 +2,30 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.GeneralFragment"
+    tools:context=".fragment.HomeFragment"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="45dp"
     xmlns:tools="http://schemas.android.com/tools">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/gradient_cloudy">
+        <ImageView
+            android:id="@+id/im_add"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/_15sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"></ImageView>
         <TextView
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_bold"
-            android:paddingTop="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="Mon, Jul 6 2021"
             android:textColor="@color/white"
             android:textSize="@dimen/_15sdp"
@@ -25,6 +33,17 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/im_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:src="@drawable/ic_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></ImageView>
 
         <TextView
             android:id="@+id/tv_city"
@@ -118,7 +137,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/manrope_regular"
             android:text="Feels like "
-            android:textColor="@color/white"
+            android:textColor="@color/white_grey"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_status"
@@ -130,7 +149,7 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/manrope_regular"
             android:text="29°"
-            android:textColor="@color/white"
+            android:textColor="@color/white_grey"
             android:textSize="@dimen/_12sdp"
             app:layout_constraintStart_toEndOf="@id/tv_feels_like"
             app:layout_constraintTop_toBottomOf="@id/tv_status"
@@ -146,8 +165,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_forecast_hourly"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:orientation="horizontal"
@@ -156,7 +174,7 @@
             app:layout_constraintTop_toBottomOf="@id/guideline1"></androidx.recyclerview.widget.RecyclerView>
         <View
             android:id="@+id/guideline2"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintTop_toBottomOf="@id/rv_forecast_hourly"
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -184,7 +202,7 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:fontFamily="@font/manrope_regular"
                 android:text="Sunrise"
-                android:textColor="@color/white"></TextView>
+                android:textColor="@color/white_grey"></TextView>
 
             <TextView
                 android:id="@+id/tv_sunrise_time"
@@ -205,7 +223,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manrope_regular"
                 android:text="Sunset"
-                android:textColor="@color/white"
+                android:textColor="@color/white_grey"
                 android:layout_toRightOf="@id/tv_sunrise"></TextView>
 
             <TextView
@@ -229,7 +247,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/manrope_regular"
                 android:text="Precipitation"
-                android:textColor="@color/white"
+                android:textColor="@color/white_grey"
                 android:layout_below="@id/tv_sunrise_time"></TextView>
 
             <TextView
@@ -250,7 +268,7 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:fontFamily="@font/manrope_regular"
                 android:text="Humidity"
-                android:textColor="@color/white"
+                android:textColor="@color/white_grey"
                 android:layout_below="@id/tv_precipitation_number"></TextView>
 
 
@@ -275,7 +293,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/manrope_regular"
                 android:text="Wind"
-                android:textColor="@color/white"
+                android:textColor="@color/white_grey"
                 android:layout_below="@id/tv_pressure_number"
                 android:layout_toRightOf="@id/tv_humidity"></TextView>
 
@@ -302,7 +320,7 @@
                 android:fontFamily="@font/manrope_regular"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:text="Pressure"
-                android:textColor="@color/white"
+                android:textColor="@color/white_grey"
                 android:layout_below="@id/tv_sunset_time"
                 android:layout_toRightOf="@id/tv_precipitation"></TextView>
 

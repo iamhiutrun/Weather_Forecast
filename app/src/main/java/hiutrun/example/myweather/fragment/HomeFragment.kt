@@ -1,29 +1,31 @@
 package hiutrun.example.myweather.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.api.ApiHelper
 import hiutrun.example.myweather.data.api.RetrofitInstance
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
 import hiutrun.example.myweather.ui.base.WeatherModelFactory
-import hiutrun.example.myweather.ui.main.adapter.ForecastAdapter
+import hiutrun.example.myweather.ui.main.adapter.DailyAdapter
+import hiutrun.example.myweather.ui.main.adapter.HourlyAdapter
 import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
 import hiutrun.example.utils.Status
-import kotlinx.android.synthetic.main.fragment_general.*
-import kotlinx.android.synthetic.main.fragment_general.tv_degree_min
+import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.tv_degree_min
 import java.text.SimpleDateFormat
 
 
-class GeneralFragment : Fragment(R.layout.fragment_general) {
+class HomeFragment : Fragment(R.layout.fragment_home) {
     private var timeFormat = SimpleDateFormat("HH:mm")
     private lateinit var viewModel: WeatherViewModel
-    private var forecastAdapter: ForecastAdapter = ForecastAdapter()
+    private var dailyAdapter: DailyAdapter = DailyAdapter()
+    private var hourlyAdapter: HourlyAdapter = HourlyAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +35,17 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         updateCurrentWeather()
+        im_add.setOnClickListener {
+            findNavController().navigate(R.id.action_generalFragment_to_settingFragment)
+        }
         rv_forecast_daily.setHasFixedSize(true)
         rv_forecast_daily.layoutManager = LinearLayoutManager(context)
+
+        rv_forecast_hourly.setHasFixedSize(true)
+        rv_forecast_hourly.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         updateDailyWeather()
+
+
 
     }
 
@@ -52,7 +62,6 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data?.let { weather ->
-                            Log.d("ABC", "updateCurrentWeather: hic ")
                             retrieveWeather(weather)
                         }
                     }
@@ -73,8 +82,12 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data?.let { weather ->
-                            forecastAdapter.setData(weather.daily)
-                            rv_forecast_daily.adapter =  forecastAdapter
+                            dailyAdapter.setData(weather.daily)
+                            rv_forecast_daily.adapter =  dailyAdapter
+
+                            hourlyAdapter.setData(weather.hourly)
+                            rv_forecast_hourly.adapter = hourlyAdapter
+
                         }
                     }
                     Status.ERROR -> {
@@ -110,14 +123,14 @@ class GeneralFragment : Fragment(R.layout.fragment_general) {
 //            layout_color.setBackgroundColor(R.drawable.gradient_sunny)
 //        }
 
-        tv_status.text = weatherResponse.weather[0].description
+        tv_status.text = weatherResponse.weather[0].main
         tv_degree_max.text = (weatherResponse.main.temp_max.toInt()-273).toString()
         tv_degree_min.text = (weatherResponse.main.temp_min.toInt() - 273).toString()
         tv_feels_like_degree.text = (weatherResponse.main.feels_like.toInt() - 273).toString()
         tv_degree.text = (weatherResponse.main.temp.toInt() - 273).toString()+"°"
         tv_humidity_number.text = weatherResponse.main.humidity.toString() + " %"
-        tv_sunrise_time.text = timeFormat.format(weatherResponse.sys.sunrise*1000)
-        tv_sunset_time.text = timeFormat.format(weatherResponse.sys.sunset*1000)
+        tv_sunrise_time.text = timeFormat.format(weatherResponse.sys.sunrise*1000 -25200000)
+        tv_sunset_time.text = timeFormat.format(weatherResponse.sys.sunset*1000-25200000)
         tv_wind_number.text = weatherResponse.wind.speed.toString() + " Km/h"
         tv_pressure_number.text = weatherResponse.main.pressure.toString() +" hPa"
     }

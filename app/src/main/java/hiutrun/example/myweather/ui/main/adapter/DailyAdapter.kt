@@ -6,14 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.models.weather.Daily
-import kotlinx.android.synthetic.main.item_forecast.view.*
-import kotlinx.android.synthetic.main.item_forecast.view.tv_day
-import kotlinx.android.synthetic.main.item_forecast_detail.view.*
+import kotlinx.android.synthetic.main.item_daily_forecast.view.*
 import java.text.SimpleDateFormat
 
-class ForecastAdapter(
+class DailyAdapter(
     private var list: ArrayList<Daily> = ArrayList<Daily>()
-) : RecyclerView.Adapter<ForecastAdapter.ForecastViewHolder>(){
+) : RecyclerView.Adapter<DailyAdapter.ForecastViewHolder>(){
     private val simpleDateFormat = SimpleDateFormat("EEEE")
 
     inner class ForecastViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
@@ -27,7 +25,7 @@ class ForecastAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastViewHolder {
         return ForecastViewHolder(LayoutInflater.from(parent.context)
-                                .inflate(R.layout.item_forecast,parent,false))
+                                .inflate(R.layout.item_daily_forecast,parent,false))
     }
 
     override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
