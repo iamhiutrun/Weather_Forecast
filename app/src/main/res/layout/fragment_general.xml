@@ -1,206 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple"
-    tools:context=".fragment.GeneralFragment">
-
-    <TextView
-        android:id="@+id/tv_hello"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/manrope_bold"
-        android:paddingStart="@dimen/_15sdp"
-        android:paddingTop="@dimen/_15sdp"
-        android:text="Good Morning"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_15sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <LinearLayout
-        android:id="@+id/layout_weather"
-        app:layout_constraintTop_toBottomOf="@+id/tv_hello"
-        android:layout_marginTop="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        android:orientation="horizontal"
+    tools:context=".fragment.GeneralFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_weight="2"
-            android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_sunny">
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_hello">
+            android:fontFamily="@font/manrope_bold"
+            android:paddingTop="@dimen/_15sdp"
+            android:text="Mon, Jul 6 2021"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tv_city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/manrope_bold"
-                android:gravity="center_horizontal"
-                android:text="Hanoi"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_25sdp"></TextView>
-
-            <ImageView
-                android:id="@+id/iv_status"
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_below="@id/tv_city"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="65dp"
-                android:layout_marginTop="6dp"
-                android:src="@drawable/ic_sunny" />
-
-            <TextView
-                android:id="@+id/tv_degree"
-                android:layout_below="@id/tv_city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/iv_status"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:text="20"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_50sdp"></TextView>
-
-            <TextView
-                android:id="@+id/o"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_city"
-                android:layout_toRightOf="@id/tv_degree"
-                android:fontFamily="@font/manrope_regular"
-                android:text="o"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_25sdp"></TextView>
-
-            <TextView
-                android:id="@+id/tv_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_city"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_toRightOf="@id/o"
-                android:fontFamily="@font/manrope_bold"
-                android:text="C"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_25sdp"></TextView>
-
-            <TextView
-                android:id="@+id/tv_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_degree"
-                android:fontFamily="@font/manrope_regular"
-                android:gravity="center_horizontal"
-                android:text="Partly Cloudy"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_20sdp"></TextView>
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/im_humidity"
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:src="@drawable/ic_humidity"></ImageView>
-            <TextView
-                android:id="@+id/tv_humidity"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/im_humidity"
-                android:textColor="@color/white"
-                android:fontFamily="@font/manrope_bold"
-                android:text="13%"></TextView>
-
-            <ImageView
-                android:layout_marginTop="@dimen/_10sdp"
-                android:id="@+id/im_wind"
-                android:layout_below="@id/im_humidity"
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:src="@drawable/ic_wind"></ImageView>
-            <TextView
-                android:id="@+id/tv_wind"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/im_humidity"
-                android:layout_toRightOf="@id/im_wind"
-                android:textColor="@color/white"
-                android:fontFamily="@font/manrope_bold"
-                android:text="9 Km/h"></TextView>
-
-            <ImageView
-                android:layout_marginTop="@dimen/_10sdp"
-                android:id="@+id/iv_other"
-                android:layout_below="@id/im_wind"
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
-                android:src="@drawable/ic_umbrella"></ImageView>
-            <TextView
-                android:id="@+id/tv_other"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/im_wind"
-                android:layout_toRightOf="@id/im_wind"
-                android:textColor="@color/white"
-                android:fontFamily="@font/manrope_bold"
-                android:text="13%"></TextView>
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_see_details"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_weather"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="See Details"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_weather"></Button>
-
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="@dimen/_50sdp"
-        app:cardCornerRadius="@dimen/_20sdp"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_see_details">
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_margin="@dimen/_10sdp"
-            android:id="@+id/rv_forecast"
+        <TextView
+            android:id="@+id/tv_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/_15ssp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/manrope_bold"
+            android:text="Hanoi"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_15ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_date"></TextView>
+
+        <TextView
+            android:id="@+id/tv_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15ssp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/manrope_bold"
+            android:text="28°"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_50ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_city"></TextView>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="@dimen/_15ssp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_arrow_up"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_degree"></ImageView>
+
+        <TextView
+            android:id="@+id/tv_max_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_19sdp"
+            android:fontFamily="@font/manrope_bold"
+            android:text="31°"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@id/tv_degree"></TextView>
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="@dimen/_15ssp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_arrow_down"
+            app:layout_constraintStart_toEndOf="@id/tv_max_degree"
+            app:layout_constraintTop_toBottomOf="@+id/tv_degree"></ImageView>
+
+        <TextView
+            android:id="@+id/tv_degree_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_marginTop="@dimen/_19sdp"
+            android:fontFamily="@font/manrope_bold"
+            android:text="19°"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toEndOf="@+id/imageView1"
+            app:layout_constraintTop_toBottomOf="@id/tv_degree"></TextView>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/manrope_bold"
+            android:text="Sunny"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imageView"></TextView>
+        <TextView
+            android:id="@+id/tv_feels_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/manrope_regular"
+            android:text="Feels like "
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_status"
+            ></TextView>
+        <TextView
+            android:id="@+id/tv_feels_like_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/manrope_regular"
+            android:text="29°"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toEndOf="@id/tv_feels_like"
+            app:layout_constraintTop_toBottomOf="@id/tv_status"
+            ></TextView>
+
+        <View
+            android:id="@+id/guideline1"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/tv_feels_like_degree"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white_grey"></View>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_forecast_hourly"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_see_details"
-            app:layout_constraintVertical_bias="1.0"></androidx.recyclerview.widget.RecyclerView>
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@id/guideline1"></androidx.recyclerview.widget.RecyclerView>
+        <View
+            android:id="@+id/guideline2"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintTop_toBottomOf="@id/rv_forecast_hourly"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/white_grey"></View>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_forecast_daily"
+            android:layout_marginTop="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@id/guideline2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_rainy"
+            app:layout_constraintTop_toBottomOf="@id/rv_forecast_daily">
+
+            <TextView
+                android:id="@+id/tv_sunrise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunrise"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+            <TextView
+                android:id="@+id/tv_sunrise_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3:55 am"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_sunrise"></TextView>
+
+            <TextView
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/tv_sunset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunset"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintStart_toEndOf="@id/tv_sunrise"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <TextView
+                android:id="@+id/tv_sunset_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="9:13 pm"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_sunset"
+                app:layout_constraintStart_toEndOf="@id/tv_sunrise_time"
+                ></TextView>
+
+            <TextView
+                android:layout_marginTop="@dimen/_10sdp"
+                android:id="@+id/tv_precipitation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precipitation"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_sunrise_time"></TextView>
+            <TextView
+                android:id="@+id/tv_precipitation_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 %"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_precipitation"></TextView>
+
+            <TextView
+                android:layout_marginTop="@dimen/_10sdp"
+                android:id="@+id/tv_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Humidity"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_precipitation"
+                app:layout_constraintTop_toBottomOf="@id/tv_sunset_time"></TextView>
+
+            <TextView
+                android:id="@+id/tv_humidity_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="42 %"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintStart_toEndOf="@id/tv_precipitation_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_humidity"></TextView>
+
+
+            <TextView
+                android:layout_marginTop="@dimen/_10sdp"
+                android:id="@+id/tv_wind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wind"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_precipitation_number"></TextView>
+            <TextView
+                android:id="@+id/tv_wind_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11 km/h"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_wind"></TextView>
+
+            <TextView
+                android:layout_marginTop="@dimen/_10sdp"
+                android:id="@+id/tv_pressure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pressure"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_wind"
+                app:layout_constraintTop_toBottomOf="@id/tv_humidity_number"></TextView>
+            <TextView
+                android:id="@+id/tv_pressure_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1009 hPa"
+                android:textColor="@color/white"
+                android:fontFamily="@font/manrope_regular"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_wind_number"
+                app:layout_constraintTop_toBottomOf="@id/tv_pressure"></TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
