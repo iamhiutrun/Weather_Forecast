@@ -10,7 +10,7 @@
         android:id="@+id/layout_color"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_cloudy">
+        android:background="@drawable/gradient_sunny">
         <ImageView
             android:id="@+id/im_add"
             android:layout_marginTop="@dimen/_10sdp"
@@ -189,9 +189,10 @@
             android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
         <RelativeLayout
+            android:id="@+id/layout_color_extension"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/gradient_cloudy_extension"
+            android:background="@drawable/gradient_sunny_extension"
             android:padding="@dimen/_20sdp"
             app:layout_constraintTop_toBottomOf="@id/rv_forecast_daily">
 
@@ -336,6 +337,18 @@
                 android:textColor="@color/white"
                 android:layout_below="@id/tv_pressure"
                 android:layout_toRightOf="@id/tv_precipitation"></TextView>
+
+            <TextView
+                android:id="@+id/tv_provided"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_humidity_number"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="27dp"
+                android:gravity="center_horizontal"
+                android:text="Data provided by OpenWeatherMap"
+                android:textColor="@color/white_grey"></TextView>
 
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
