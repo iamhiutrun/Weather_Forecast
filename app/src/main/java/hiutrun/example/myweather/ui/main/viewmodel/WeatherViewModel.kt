@@ -4,21 +4,14 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.*
-import android.net.NetworkCapabilities
 import android.net.NetworkCapabilities.*
 import android.os.Build
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
-import hiutrun.example.myweather.data.api.RetrofitInstance
 import hiutrun.example.myweather.data.repository.WeatherRepository
-import hiutrun.example.utils.Constants
-import hiutrun.example.utils.Resource
-import hiutrun.example.utils.WeatherApplication
+import hiutrun.example.myweather.utils.Resource
+import hiutrun.example.myweather.utils.WeatherApplication
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class WeatherViewModel(
     val app: Application,

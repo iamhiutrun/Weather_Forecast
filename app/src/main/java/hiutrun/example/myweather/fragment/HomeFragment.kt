@@ -12,19 +12,22 @@ import hiutrun.example.myweather.ui.main.adapter.DailyAdapter
 import hiutrun.example.myweather.ui.main.adapter.HourlyAdapter
 import hiutrun.example.myweather.ui.main.view.MainActivity
 import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
-import hiutrun.example.utils.Utils.Companion.timeFormat
-import hiutrun.example.utils.Status
-import hiutrun.example.utils.Utils.Companion.getDay
+import hiutrun.example.myweather.utils.Utils.Companion.timeFormat
+import hiutrun.example.myweather.utils.Status
+import hiutrun.example.myweather.utils.Utils.Companion.getDay
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.tv_degree_min
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var viewModel: WeatherViewModel
     private var dailyAdapter: DailyAdapter = DailyAdapter()
     private var hourlyAdapter: HourlyAdapter = HourlyAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -42,7 +45,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         rv_forecast_hourly.setHasFixedSize(true)
         rv_forecast_hourly.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
         updateDailyWeather()
+
+        pullToRefresh.setOnRefreshListener {
+            updateCurrentWeather()
+            updateDailyWeather()
+            pullToRefresh.isRefreshing = false
+
+        }
     }
+
 
 
     private fun updateCurrentWeather() {

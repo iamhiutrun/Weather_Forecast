@@ -1,4 +1,4 @@
-package hiutrun.example.utils
+package hiutrun.example.myweather.utils
 
 enum class Status {
     SUCCESS,

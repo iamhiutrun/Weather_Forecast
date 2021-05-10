@@ -1,4 +1,4 @@
-package hiutrun.example.utils
+package hiutrun.example.myweather.utils
 
 data class Resource<out T>(val status: Status, val data: T?, val message:String?){
     companion object{

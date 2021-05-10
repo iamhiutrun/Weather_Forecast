@@ -1,14 +1,13 @@
 package hiutrun.example.myweather.ui.main.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.models.weather.Daily
-import hiutrun.example.utils.Utils.Companion.dateFormat
-import hiutrun.example.utils.Utils.Companion.getIconResourceForWeatherCondition
+import hiutrun.example.myweather.utils.Utils.Companion.dateFormat
+import hiutrun.example.myweather.utils.Utils.Companion.getIconResourceForWeatherCondition
 import kotlinx.android.synthetic.main.item_daily_forecast.view.*
 
 class DailyAdapter(

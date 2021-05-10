@@ -1,11 +1,7 @@
-package hiutrun.example.utils
+package hiutrun.example.myweather.utils
 
-import android.util.Log
 import hiutrun.example.myweather.R
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 

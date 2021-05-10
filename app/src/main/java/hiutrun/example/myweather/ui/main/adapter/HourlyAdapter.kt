@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.models.weather.Hourly
-import hiutrun.example.utils.Utils.Companion.timeFormat
+import hiutrun.example.myweather.utils.Utils.Companion.timeFormat
 import kotlinx.android.synthetic.main.item_hourly_forecast.view.*
 
 class HourlyAdapter(

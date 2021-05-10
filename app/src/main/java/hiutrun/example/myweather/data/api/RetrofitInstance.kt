@@ -1,6 +1,6 @@
 package hiutrun.example.myweather.data.api
 
-import hiutrun.example.utils.Constants
+import hiutrun.example.myweather.utils.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

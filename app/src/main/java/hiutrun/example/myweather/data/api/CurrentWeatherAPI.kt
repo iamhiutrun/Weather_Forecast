@@ -2,9 +2,7 @@ package hiutrun.example.myweather.data.api
 
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
 import hiutrun.example.myweather.data.models.weather.WeatherForecastRespone
-import hiutrun.example.utils.Constants
-import retrofit2.Call
-import retrofit2.Response
+import hiutrun.example.myweather.utils.Constants
 import retrofit2.http.GET
 import retrofit2.http.Query
 
