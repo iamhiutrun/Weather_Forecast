@@ -19,7 +19,7 @@
             android:id="@+id/tv_degree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="#081139"
             android:fontFamily="@font/manrope_bold"
             android:textSize="@dimen/_20ssp"
             android:text="28°"></TextView>
@@ -30,7 +30,7 @@
             android:layout_below="@+id/tv_degree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="#081139"
             android:fontFamily="@font/manrope_bold"
             android:textSize="@dimen/_15ssp"
             android:text="Hanoi"></TextView>

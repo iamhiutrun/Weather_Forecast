@@ -1,10 +1,10 @@
 package hiutrun.example.myweather.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
@@ -25,14 +25,30 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var hourlyAdapter: HourlyAdapter = HourlyAdapter()
 
 
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            HomeFragment().apply {
+                arguments = Bundle().apply {
+
+                }
+            }
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("ABC", "onCreate: here")
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        Log.d("ABC", "onActivityCreated: ")
         viewModel = (activity as MainActivity).viewModel
-
         updateCurrentWeather()
         tv_date.text = getDay()
         im_add.setOnClickListener {
-            findNavController().navigate(R.id.action_generalFragment_to_settingFragment)
+            replaceFragment(CityFragment.newInstance(),false)
         }
 
         rv_forecast_daily.setHasFixedSize(true)
@@ -47,9 +63,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             updateDailyWeather()
 
         }
+
     }
-
-
 
     private fun updateCurrentWeather() {
         viewModel.getCurrentWeather("21.0245","105.8412").observe(viewLifecycleOwner, Observer {
@@ -127,5 +142,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         tv_pressure_number.text = weatherResponse.main.pressure.toString() +" hPa"
     }
 
+    private fun replaceFragment(fragment: Fragment, isTransition : Boolean) {
+        val fragmentTransition = activity!!.supportFragmentManager.beginTransaction()
 
+        if(isTransition){
+            fragmentTransition.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
+        }
+        fragmentTransition.add(R.id.frame_layout,fragment)
+        fragmentTransition.commit()
+    }
 }

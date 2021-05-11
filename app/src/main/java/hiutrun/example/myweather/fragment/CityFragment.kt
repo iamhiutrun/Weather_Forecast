@@ -1,14 +1,11 @@
 package hiutrun.example.myweather.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.models.current.Coord
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
@@ -17,17 +14,24 @@ import hiutrun.example.myweather.ui.main.view.MainActivity
 import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
 import hiutrun.example.myweather.utils.Status
 import kotlinx.android.synthetic.main.fragment_setting.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
-class SettingFragment : Fragment(R.layout.fragment_setting) {
+class CityFragment : Fragment(R.layout.fragment_setting) {
 
     lateinit var viewModel: WeatherViewModel
     private var listCoord = ArrayList<Coord>()
     private var cityAdapter = CityAdapter()
     private var dataWeather = ArrayList<CurrentWeatherResponse>()
+
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            CityFragment().apply {
+                arguments = Bundle().apply {
+
+                }
+            }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
@@ -41,15 +45,15 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
 
         rv_city.layoutManager = GridLayoutManager(context,2)
         rv_city.setHasFixedSize(true)
-
-        im_back.setOnClickListener {
-            (activity as MainActivity).onBackPressed()
+        cityAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("coor",it)
+            }
+            removeFragment(this,false)
         }
-    }
-
-    private suspend fun x(){
 
     }
+
     private fun pickData(coord: Coord){
         viewModel.getCurrentWeather(coord.lat.toString(),coord.lon.toString()).observe(viewLifecycleOwner, Observer {
             it?.let { resources->
@@ -72,5 +76,15 @@ class SettingFragment : Fragment(R.layout.fragment_setting) {
                 }
             }
         })
+    }
+
+    private fun removeFragment(fragment: Fragment, isTransition : Boolean) {
+        val fragmentTransition = activity!!.supportFragmentManager.beginTransaction()
+
+        if(isTransition){
+            fragmentTransition.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
+        }
+        fragmentTransition.remove(fragment)
+        fragmentTransition.commit()
     }
 }

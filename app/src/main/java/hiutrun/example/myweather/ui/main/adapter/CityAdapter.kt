@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hiutrun.example.myweather.R
+import hiutrun.example.myweather.data.models.current.Coord
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
 import hiutrun.example.myweather.utils.Utils.Companion.getIconResourceForWeatherCondition
 import kotlinx.android.synthetic.main.item_city_forecast.view.*
@@ -29,13 +30,26 @@ class CityAdapter(
     override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
         val forcast = list[position]
         var i = getIconResourceForWeatherCondition(forcast.weather[0].id)
-        holder.itemView.im_weather.setImageResource(i)
-        holder.itemView.tv_degree.text = (forcast.main.temp.toInt().minus(273)).toString()
-        holder.itemView.tv_city.text = forcast.name
-        holder.itemView.tv_country.text = forcast.sys.country
+        holder.itemView.apply {
+            im_weather.setImageResource(i)
+            tv_degree.text = (forcast.main.temp.toInt().minus(273)).toString()
+            tv_city.text = forcast.name
+            tv_country.text = forcast.sys.country
+
+            setOnClickListener {
+                onItemClickListener?.let {
+                    it(forcast.coord)
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    private var onItemClickListener:((Coord)->Unit)?=null
+    fun setOnItemClickListener(listener: (Coord)->Unit){
+        onItemClickListener = listener
     }
 }
