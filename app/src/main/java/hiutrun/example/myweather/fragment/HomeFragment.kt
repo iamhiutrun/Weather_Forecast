@@ -24,10 +24,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var dailyAdapter: DailyAdapter = DailyAdapter()
     private var hourlyAdapter: HourlyAdapter = HourlyAdapter()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -49,7 +45,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         pullToRefresh.setOnRefreshListener {
             updateCurrentWeather()
             updateDailyWeather()
-            pullToRefresh.isRefreshing = false
 
         }
     }
@@ -57,12 +52,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     private fun updateCurrentWeather() {
-        viewModel.getCurrentWeather("hanoi").observe(viewLifecycleOwner, Observer {
+        viewModel.getCurrentWeather("21.0245","105.8412").observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data?.let { weather ->
                             retrieveWeather(weather)
+                            pullToRefresh.isRefreshing = false
                         }
                     }
                     Status.ERROR -> {
@@ -82,6 +78,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         resource.data?.let { weather ->
+                            pullToRefresh.isRefreshing = false
                             dailyAdapter.setData(weather.daily)
                             rv_forecast_daily.adapter =  dailyAdapter
 

@@ -3,8 +3,8 @@ package hiutrun.example.myweather.data.repository
 import hiutrun.example.myweather.data.api.ApiHelper
 
 class WeatherRepository(private val apiHelper:ApiHelper) {
-    suspend fun getCurrentWeather(q:String)=
-        apiHelper.getCurrentWeather(q)
+    suspend fun getCurrentWeather(lat:String,lon: String)=
+        apiHelper.getCurrentWeather(lat,lon)
 
 //    suspend fun getDailyWeather(q:String)=
 //        apiHelper.getDailyWeatherForecast(q)
