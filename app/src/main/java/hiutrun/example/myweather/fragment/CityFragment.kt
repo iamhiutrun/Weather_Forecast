@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_setting.*
 class CityFragment : Fragment(R.layout.fragment_setting) {
 
     lateinit var viewModel: WeatherViewModel
-    private var listCoord = ArrayList<Coord>()
+    private var listCoord = ArrayList<String>()
     private var cityAdapter = CityAdapter()
     private var dataWeather = ArrayList<CurrentWeatherResponse>()
 
@@ -35,9 +35,10 @@ class CityFragment : Fragment(R.layout.fragment_setting) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
-        listCoord.add(Coord(21.027764,105.83416))
-        listCoord.add(Coord(19.806692,105.785182))
-        listCoord.add(Coord(19.234249,104.920037))
+        listCoord.add("Nha Trang")
+        listCoord.add("Ninh Binh")
+        listCoord.add("Ca Mau")
+        listCoord.add("Nam Dinh")
 
         listCoord.forEach { it ->
             pickData(it)
@@ -54,8 +55,8 @@ class CityFragment : Fragment(R.layout.fragment_setting) {
 
     }
 
-    private fun pickData(coord: Coord){
-        viewModel.getCurrentWeather(coord.lat.toString(),coord.lon.toString()).observe(viewLifecycleOwner, Observer {
+    private fun pickData(cityName: String){
+        viewModel.getCurrentWeather(cityName).observe(viewLifecycleOwner, Observer {
             it?.let { resources->
                 when(resources.status){
                     Status.LOADING->{

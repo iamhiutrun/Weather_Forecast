@@ -35,17 +35,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("ABC", "onCreate: here")
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        Log.d("ABC", "onActivityCreated: ")
         viewModel = (activity as MainActivity).viewModel
-        updateCurrentWeather()
+        updateCurrentWeather("Hanoi")
         tv_date.text = getDay()
         im_add.setOnClickListener {
             replaceFragment(CityFragment.newInstance(),false)
@@ -56,18 +49,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         rv_forecast_hourly.setHasFixedSize(true)
         rv_forecast_hourly.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
-        updateDailyWeather()
 
         pullToRefresh.setOnRefreshListener {
-            updateCurrentWeather()
-            updateDailyWeather()
-
+            updateCurrentWeather("Ca Mau")
         }
 
     }
 
-    private fun updateCurrentWeather() {
-        viewModel.getCurrentWeather("21.0245","105.8412").observe(viewLifecycleOwner, Observer {
+    private fun updateCurrentWeather(cityName:String) {
+        viewModel.getCurrentWeather(cityName).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -87,8 +77,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
     }
 
-    private fun updateDailyWeather(){
-        viewModel.getAllData("21.0245","105.8412").observe(viewLifecycleOwner, Observer {
+    private fun updateDailyWeather(lat:String,lon:String){
+        viewModel.getAllData(lat,lon).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -114,7 +104,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
     private fun retrieveWeather(weatherResponse: CurrentWeatherResponse) {
         var status = weatherResponse.weather[0].main
-
         when(status){
             "Clouds" -> {
                layout_color.setBackgroundResource(R.drawable.gradient_cloudy)
@@ -129,7 +118,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                  layout_color_extension.setBackgroundResource(R.drawable.gradient_sunny_extension)
              }
         }
-
+        val coord = weatherResponse.coord
+        updateDailyWeather(coord.lat.toString(),coord.lon.toString())
+        tv_city.text = weatherResponse.name
         tv_status.text = weatherResponse.weather[0].main
         tv_degree_max.text = (weatherResponse.main.temp_max.toInt()-273).toString()
         tv_degree_min.text = (weatherResponse.main.temp_min.toInt() - 273).toString()
@@ -148,7 +139,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         if(isTransition){
             fragmentTransition.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
         }
-        fragmentTransition.add(R.id.frame_layout,fragment)
+        fragmentTransition.add(R.id.frame_layout,fragment).addToBackStack(fragment.javaClass.simpleName)
         fragmentTransition.commit()
     }
 }

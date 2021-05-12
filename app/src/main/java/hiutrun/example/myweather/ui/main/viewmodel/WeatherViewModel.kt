@@ -18,11 +18,11 @@ class WeatherViewModel(
     private val weatherRepository: WeatherRepository
 ) : AndroidViewModel(app){
 
-    fun getCurrentWeather(lat:String,lon:String) = liveData(Dispatchers.IO){
+    fun getCurrentWeather(cityName:String) = liveData(Dispatchers.IO){
         emit(Resource.loading(data = null))
         try {
             if(hasInternetConnection())
-            emit(Resource.success(data = weatherRepository.getCurrentWeather(lat,lon)))
+            emit(Resource.success(data = weatherRepository.getCurrentWeather(cityName)))
         }catch (exception:Exception){
             emit(Resource.error(data = null,message = exception.message?:"Error Occurred!"))
         }

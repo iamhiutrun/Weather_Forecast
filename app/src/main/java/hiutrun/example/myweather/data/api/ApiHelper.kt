@@ -3,8 +3,8 @@ package hiutrun.example.myweather.data.api
 import hiutrun.example.myweather.utils.Constants
 
 class ApiHelper(private val apiService:WeatherForecastAPI) {
-    suspend fun getCurrentWeather(lat:String,lon: String) =
-        apiService.getCurrentWeather(lat,lon,Constants.API_KEY)
+    suspend fun getCurrentWeather(cityName:String) =
+        apiService.getCurrentWeather(cityName,Constants.API_KEY)
 
 //    suspend fun getDailyWeatherForecast(q: String) =
 //        apiService.getDailyWeather(q,7,Constants.API_KEY)
