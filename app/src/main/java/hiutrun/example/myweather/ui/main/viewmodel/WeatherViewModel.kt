@@ -132,6 +132,7 @@ class WeatherViewModel(
         if(!cities!!.contains(cityName))
             cities?.add(cityName)
         _citiesName.postValue(cities)
+        getAllCitiesWeather()
     }
 
     fun getAllCitiesWeather() = viewModelScope.launch {

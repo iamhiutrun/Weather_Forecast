@@ -38,7 +38,7 @@ class CityAdapter(
 
             setOnClickListener {
                 onItemClickListener?.let {
-                    it(forcast.coord)
+                    it(forcast.name)
                 }
             }
         }
@@ -48,8 +48,8 @@ class CityAdapter(
         return list.size
     }
 
-    private var onItemClickListener:((Coord)->Unit)?=null
-    fun setOnItemClickListener(listener: (Coord)->Unit){
+    private var onItemClickListener:((String)->Unit)?=null
+    fun setOnItemClickListener(listener: (String)->Unit){
         onItemClickListener = listener
     }
 }

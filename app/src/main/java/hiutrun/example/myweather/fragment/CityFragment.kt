@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import hiutrun.example.myweather.R
@@ -39,6 +40,7 @@ class CityFragment : Fragment(R.layout.fragment_setting) {
         rv_city.setHasFixedSize(true)
 
         cityAdapter.setOnItemClickListener {
+            viewModel.getCurrentWeather(it)
             removeFragment(this,false)
         }
 
@@ -54,6 +56,19 @@ class CityFragment : Fragment(R.layout.fragment_setting) {
             }
             cityAdapter.setData(cities)
             rv_city.adapter = cityAdapter
+        })
+        search_view.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    viewModel.addCity(query)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+               return true
+            }
+
         })
     }
 
