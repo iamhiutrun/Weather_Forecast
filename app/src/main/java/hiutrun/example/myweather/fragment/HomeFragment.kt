@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_home.tv_degree_min
 
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
-    lateinit var viewModel: WeatherViewModel
+     lateinit var viewModel: WeatherViewModel
      private var dailyAdapter: DailyAdapter = DailyAdapter()
      private var hourlyAdapter: HourlyAdapter = HourlyAdapter()
 
@@ -48,19 +48,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
         }
-//
+
         rv_forecast_hourly.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
 
-//        pullToRefresh.setOnRefreshListener {
-//            updateCurrentWeather("Ca Mau")
-//        }
+        pullToRefresh.setOnRefreshListener {
+        }
 
-//        im_add.setOnClickListener {
-//            replaceFragment(CityFragment.newInstance(),false)
-//        }
+        im_add.setOnClickListener {
+            viewModel.addCity("Ha Long")
+            viewModel.getAllCitiesWeather()
+            replaceFragment(CityFragment.newInstance(),false)
+        }
+
+
 
         viewModel.hourlyWeather.observe(viewLifecycleOwner, Observer{response->
             when(response){
@@ -92,52 +95,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         rv_forecast_hourly.adapter = hourlyAdapter
     }
 
-//    private fun updateCurrentWeather(cityName:String) {
-//        viewModel.getCurrentWeather(cityName).observe(viewLifecycleOwner, Observer {
-//            it?.let { resource ->
-//                when (resource.status) {
-//                    Status.SUCCESS -> {
-//                        resource.data?.let { weather ->
-//                            retrieveWeather(weather)
-//                            pullToRefresh.isRefreshing = false
-//                        }
-//                    }
-//                    Status.ERROR -> {
-//                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-//                    }
-//                    Status.LOADING -> {
-//
-//                    }
-//                }
-//            }
-//        })
-//    }
 
-//    private fun updateDailyWeather(lat:String,lon:String){
-//        viewModel.getAllData(lat,lon).observe(viewLifecycleOwner, Observer {
-//            it?.let { resource ->
-//                when (resource.status) {
-//                    Status.SUCCESS -> {
-//                        resource.data?.let { weather ->
-//                            pullToRefresh.isRefreshing = false
-//                            dailyAdapter.setData(weather.daily)
-//                            rv_forecast_daily.adapter =  dailyAdapter
-//
-//                            hourlyAdapter.setData(weather.hourly)
-//                            rv_forecast_hourly.adapter = hourlyAdapter
-//
-//                        }
-//                    }
-//                    Status.ERROR -> {
-//                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-//                    }
-//                    Status.LOADING -> {
-//
-//                    }
-//                }
-//            }
-//        })
-//    }
     private fun retrieveWeather(weatherResponse: CurrentWeatherResponse) {
         var status = weatherResponse.weather[0].main
         when(status){
@@ -154,8 +112,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                  layout_color_extension.setBackgroundResource(R.drawable.gradient_sunny_extension)
              }
         }
-//        val coord = weatherResponse.coord
-//        updateDailyWeather(coord.lat.toString(),coord.lon.toString())
 
         tv_city.text = weatherResponse.name
         tv_status.text = weatherResponse.weather[0].main
