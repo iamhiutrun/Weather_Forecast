@@ -55,7 +55,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         pullToRefresh.setOnRefreshListener {
-            viewModel.getCurrentWeather("hanoi")
+            viewModel.getCurrentWeather(viewModel.cityName)
             pullToRefresh.isRefreshing = true
         }
 
@@ -99,6 +99,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         hourlyAdapter.setData(dailyResponse.hourly)
         rv_forecast_hourly.adapter = hourlyAdapter
         pullToRefresh.isRefreshing = false
+        Toast.makeText(context,"Update successfully",Toast.LENGTH_LONG).show()
     }
 
 

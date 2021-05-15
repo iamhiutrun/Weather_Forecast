@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this,
             WeatherModelFactory(application, ApiHelper(RetrofitInstance.api)))
             .get(WeatherViewModel::class.java)
-        viewModel.getCurrentWeather("Thanh Hoa")
+        viewModel.getCurrentWeather("hanoi")
         replaceFragment(HomeFragment.newInstance(),false)
     }
 

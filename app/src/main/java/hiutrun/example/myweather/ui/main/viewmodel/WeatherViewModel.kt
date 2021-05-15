@@ -29,6 +29,8 @@ class WeatherViewModel(
     private val _citiesName: MutableLiveData<ArrayList<String>> = MutableLiveData()
     private val _cityWeather: MutableLiveData<ArrayList<Resource<CurrentWeatherResponse>>> = MutableLiveData()
 
+    var cityName = " "
+
     val dailyWeather: LiveData<Resource<WeatherForecastRespone>>
         get() = _dailyWeather
 
@@ -47,6 +49,7 @@ class WeatherViewModel(
 
 
     fun getCurrentWeather(cityName: String) = viewModelScope.launch {
+        this@WeatherViewModel.cityName = cityName
         _hourlyWeather.postValue(Resource.Loading())
         try {
             if (hasInternetConnection()) {

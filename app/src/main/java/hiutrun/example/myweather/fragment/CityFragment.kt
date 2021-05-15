@@ -42,6 +42,7 @@ class CityFragment : Fragment(R.layout.fragment_setting) {
 
         cityAdapter.setOnItemClickListener {
             viewModel.getCurrentWeather(it)
+            viewModel.cityName = it
             removeFragment()
         }
 
