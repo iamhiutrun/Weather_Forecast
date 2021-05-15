@@ -55,10 +55,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         pullToRefresh.setOnRefreshListener {
+            viewModel.getCurrentWeather("hanoi")
+            pullToRefresh.isRefreshing = true
         }
 
         im_add.setOnClickListener {
-            viewModel.addCity("Ha Long")
             viewModel.getAllCitiesWeather()
             replaceFragment(CityFragment.newInstance(),false)
         }
@@ -71,6 +72,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     response.data?.let { hourlyResponse->
                         retrieveWeather(hourlyResponse)
                     }
+                }
+                is Resource.Error ->{
+                    pullToRefresh.isRefreshing = false
+                    Toast.makeText(context,response.message,Toast.LENGTH_LONG).show()
                 }
                 else -> null
             }
@@ -93,6 +98,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         rv_forecast_daily.adapter =  dailyAdapter
         hourlyAdapter.setData(dailyResponse.hourly)
         rv_forecast_hourly.adapter = hourlyAdapter
+        pullToRefresh.isRefreshing = false
     }
 
 

@@ -36,12 +36,13 @@ class CityFragment : Fragment(R.layout.fragment_setting) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
 
-        rv_city.layoutManager = GridLayoutManager(context,2)
         rv_city.setHasFixedSize(true)
+        rv_city.layoutManager = GridLayoutManager(context,2)
+
 
         cityAdapter.setOnItemClickListener {
             viewModel.getCurrentWeather(it)
-            removeFragment(this,false)
+            removeFragment()
         }
 
         viewModel.citiesWeather.observe(viewLifecycleOwner, Observer { response ->
@@ -74,13 +75,5 @@ class CityFragment : Fragment(R.layout.fragment_setting) {
 
 
 
-    private fun removeFragment(fragment: Fragment, isTransition : Boolean) {
-        val fragmentTransition = activity!!.supportFragmentManager.beginTransaction()
-
-        if(isTransition){
-            fragmentTransition.setCustomAnimations(android.R.anim.slide_out_right, android.R.anim.slide_in_left)
-        }
-        fragmentTransition.remove(fragment)
-        fragmentTransition.commit()
-    }
+    private fun removeFragment() = activity!!.supportFragmentManager.popBackStack()
 }

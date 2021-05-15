@@ -2,6 +2,8 @@ package hiutrun.example.myweather.ui.main.viewmodel
 
 import android.app.Application
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.*
 import android.net.NetworkCapabilities.*
@@ -40,7 +42,7 @@ class WeatherViewModel(
         get() = _cityWeather
 
     init {
-        _citiesName.postValue(arrayListOf("Nha Trang", "Ninh Binh", "Ca Mau", "Nam Dinh"))
+        _citiesName.postValue(arrayListOf("Nha Trang", "Ninh Binh", "Ca Mau", "Nam Dinh","Ha Dong","Ha Tinh"))
     }
 
 

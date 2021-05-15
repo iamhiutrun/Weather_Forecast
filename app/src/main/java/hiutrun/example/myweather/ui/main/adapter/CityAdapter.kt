@@ -32,7 +32,7 @@ class CityAdapter(
         var i = getIconResourceForWeatherCondition(forcast.weather[0].id)
         holder.itemView.apply {
             im_weather.setImageResource(i)
-            tv_degree.text = (forcast.main.temp.toInt().minus(273)).toString()
+            tv_degree.text = (forcast.main.temp.toInt().minus(273)).toString()+"°"
             tv_city.text = forcast.name
             tv_country.text = forcast.sys.country
 
