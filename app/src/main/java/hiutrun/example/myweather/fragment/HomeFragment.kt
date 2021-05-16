@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hiutrun.example.myweather.R
+import hiutrun.example.myweather.data.local.DataLocalManager
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
 import hiutrun.example.myweather.data.models.weather.WeatherForecastRespone
 import hiutrun.example.myweather.ui.main.adapter.DailyAdapter
@@ -43,6 +44,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         viewModel = (activity as MainActivity).viewModel
         tv_date.text = getDay()
 
+        if(!viewModel.hasInternetConnection()){
+            val currentWeatherResponse = DataLocalManager.getCurrentWeather()
+            val dailyResponse = DataLocalManager.getDailyWeather()
+            retrieveWeather(currentWeatherResponse)
+            retrieveDailyWeather(dailyResponse)
+        }
 
         rv_forecast_daily.apply {
             layoutManager = LinearLayoutManager(context)
@@ -94,6 +101,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun retrieveDailyWeather(dailyResponse: WeatherForecastRespone) {
+        if(viewModel.hasInternetConnection()){
+            DataLocalManager.setDailyWeather(dailyResponse)
+        }
+
         dailyAdapter.setData(dailyResponse.daily)
         rv_forecast_daily.adapter =  dailyAdapter
         hourlyAdapter.setData(dailyResponse.hourly)
@@ -104,6 +115,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
     private fun retrieveWeather(weatherResponse: CurrentWeatherResponse) {
+
+        if(viewModel.hasInternetConnection()){
+            DataLocalManager.setCurrentWeather(weatherResponse)
+        }
+
         var status = weatherResponse.weather[0].main
         when(status){
             "Clouds" -> {

@@ -2,11 +2,13 @@ package hiutrun.example.myweather.ui.main.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.api.ApiHelper
 import hiutrun.example.myweather.data.api.RetrofitInstance
+import hiutrun.example.myweather.data.local.DataLocalManager
 import hiutrun.example.myweather.fragment.HomeFragment
 import hiutrun.example.myweather.ui.base.WeatherModelFactory
 import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
@@ -19,6 +21,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        if(!DataLocalManager.getFirstInstalled()){
+            Toast.makeText(this, "First Installed",Toast.LENGTH_SHORT).show()
+            DataLocalManager.setFirstInstalled(true)
+        }
         viewModel = ViewModelProvider(this,
             WeatherModelFactory(application, ApiHelper(RetrofitInstance.api)))
             .get(WeatherViewModel::class.java)
