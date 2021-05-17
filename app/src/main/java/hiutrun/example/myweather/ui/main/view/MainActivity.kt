@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.api.ApiHelper
 import hiutrun.example.myweather.data.api.RetrofitInstance
-import hiutrun.example.myweather.data.local.DataLocalManager
+import hiutrun.example.myweather.data.local.roomdatabase.WeatherDatabase
+import hiutrun.example.myweather.data.local.sharedpreferences.DataLocalManager
+import hiutrun.example.myweather.data.repository.WeatherRepository
 import hiutrun.example.myweather.fragment.HomeFragment
 import hiutrun.example.myweather.ui.base.WeatherModelFactory
 import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
@@ -25,8 +27,9 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "First Installed",Toast.LENGTH_SHORT).show()
             DataLocalManager.setFirstInstalled(true)
         }
+        val repository = WeatherRepository(WeatherDatabase(this))
         viewModel = ViewModelProvider(this,
-            WeatherModelFactory(application, ApiHelper(RetrofitInstance.api)))
+            WeatherModelFactory(application,repository))
             .get(WeatherViewModel::class.java)
         viewModel.getCurrentWeather("hanoi")
         replaceFragment(HomeFragment.newInstance(),false)

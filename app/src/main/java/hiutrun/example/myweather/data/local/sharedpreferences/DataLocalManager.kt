@@ -1,10 +1,9 @@
-package hiutrun.example.myweather.data.local
+package hiutrun.example.myweather.data.local.sharedpreferences
 
 import android.content.Context
 import com.google.gson.Gson
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
-import hiutrun.example.myweather.data.models.weather.WeatherForecastRespone
-import hiutrun.example.myweather.ui.main.adapter.DailyAdapter
+import hiutrun.example.myweather.data.models.weather.WeatherForecastResponse
 import hiutrun.example.myweather.utils.Constants.Companion.CURRENT_WEATHER_DATA
 import hiutrun.example.myweather.utils.Constants.Companion.DAILY_WEATHER_DATA
 import hiutrun.example.myweather.utils.Constants.Companion.PREF_FIRST_INSTALL
@@ -39,15 +38,16 @@ class DataLocalManager {
             return Gson().fromJson(dataString,CurrentWeatherResponse::class.java)
         }
 
-        fun setDailyWeather(weatherForecastRespone: WeatherForecastRespone){
-            val data = Gson().toJson(weatherForecastRespone)
+        fun setDailyWeather(weatherForecastResponse: WeatherForecastResponse){
+            val data = Gson().toJson(weatherForecastResponse)
             instance.weatherSharedPreferences!!.putStringValue(DAILY_WEATHER_DATA,data)
         }
 
-        fun getDailyWeather(): WeatherForecastRespone{
+        fun getDailyWeather(): WeatherForecastResponse{
             val dataString = instance.weatherSharedPreferences!!.getStringValue(DAILY_WEATHER_DATA)
-            return Gson().fromJson(dataString,WeatherForecastRespone::class.java)
+            return Gson().fromJson(dataString,WeatherForecastResponse::class.java)
         }
+
 
     }
 

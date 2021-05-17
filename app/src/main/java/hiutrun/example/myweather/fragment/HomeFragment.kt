@@ -1,23 +1,21 @@
 package hiutrun.example.myweather.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hiutrun.example.myweather.R
-import hiutrun.example.myweather.data.local.DataLocalManager
+import hiutrun.example.myweather.data.local.sharedpreferences.DataLocalManager
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
-import hiutrun.example.myweather.data.models.weather.WeatherForecastRespone
+import hiutrun.example.myweather.data.models.weather.WeatherForecastResponse
 import hiutrun.example.myweather.ui.main.adapter.DailyAdapter
 import hiutrun.example.myweather.ui.main.adapter.HourlyAdapter
 import hiutrun.example.myweather.ui.main.view.MainActivity
 import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
 import hiutrun.example.myweather.utils.Resource
 import hiutrun.example.myweather.utils.Utils.Companion.timeFormat
-import hiutrun.example.myweather.utils.Status
 import hiutrun.example.myweather.utils.Utils.Companion.getDay
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.tv_degree_min
@@ -100,7 +98,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
     }
 
-    private fun retrieveDailyWeather(dailyResponse: WeatherForecastRespone) {
+    private fun retrieveDailyWeather(dailyResponse: WeatherForecastResponse) {
         if(viewModel.hasInternetConnection()){
             DataLocalManager.setDailyWeather(dailyResponse)
         }

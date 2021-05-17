@@ -1,4 +1,4 @@
-package hiutrun.example.myweather.data.local
+package hiutrun.example.myweather.data.local.sharedpreferences
 
 import android.content.Context
 import hiutrun.example.myweather.utils.Constants.Companion.WEATHER_SHARED_PREFERENCES

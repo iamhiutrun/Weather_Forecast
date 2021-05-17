@@ -2,8 +2,6 @@ package hiutrun.example.myweather.ui.main.viewmodel
 
 import android.app.Application
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.ConnectivityManager.*
 import android.net.NetworkCapabilities.*
@@ -11,7 +9,7 @@ import android.os.Build
 import android.util.Log
 import androidx.lifecycle.*
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
-import hiutrun.example.myweather.data.models.weather.WeatherForecastRespone
+import hiutrun.example.myweather.data.models.weather.WeatherForecastResponse
 import hiutrun.example.myweather.data.repository.WeatherRepository
 import hiutrun.example.myweather.utils.Resource
 import hiutrun.example.myweather.utils.WeatherApplication
@@ -23,7 +21,7 @@ class WeatherViewModel(
     val app: Application,
     private val weatherRepository: WeatherRepository
 ) : AndroidViewModel(app) {
-    private val _dailyWeather: MutableLiveData<Resource<WeatherForecastRespone>> = MutableLiveData()
+    private val _dailyWeather: MutableLiveData<Resource<WeatherForecastResponse>> = MutableLiveData()
     private val _hourlyWeather: MutableLiveData<Resource<CurrentWeatherResponse>> =
         MutableLiveData()
     private val _citiesName: MutableLiveData<ArrayList<String>> = MutableLiveData()
@@ -31,7 +29,7 @@ class WeatherViewModel(
 
     var cityName = " "
 
-    val dailyWeather: LiveData<Resource<WeatherForecastRespone>>
+    val dailyWeather: LiveData<Resource<WeatherForecastResponse>>
         get() = _dailyWeather
 
     val hourlyWeather: LiveData<Resource<CurrentWeatherResponse>>
@@ -96,7 +94,7 @@ class WeatherViewModel(
         }
     }
 
-    private fun handleDailyWeather(response: Response<WeatherForecastRespone>): Resource<WeatherForecastRespone>? {
+    private fun handleDailyWeather(response: Response<WeatherForecastResponse>): Resource<WeatherForecastResponse>? {
         if (response.isSuccessful) {
             response.body()?.let { resultResponse ->
                 return Resource.Success(resultResponse)

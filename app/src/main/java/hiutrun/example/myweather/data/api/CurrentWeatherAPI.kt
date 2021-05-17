@@ -1,7 +1,7 @@
 package hiutrun.example.myweather.data.api
 
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
-import hiutrun.example.myweather.data.models.weather.WeatherForecastRespone
+import hiutrun.example.myweather.data.models.weather.WeatherForecastResponse
 import hiutrun.example.myweather.utils.Constants
 import retrofit2.Response
 import retrofit2.http.GET
@@ -24,6 +24,6 @@ interface WeatherForecastAPI {
         @Query("lon")
         lon:String,
         @Query("appid")
-        appid:String
-    ):Response<WeatherForecastRespone>
+        appid:String = Constants.API_KEY
+    ):Response<WeatherForecastResponse>
 }
