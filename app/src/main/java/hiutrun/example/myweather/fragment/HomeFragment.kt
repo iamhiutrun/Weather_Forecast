@@ -1,7 +1,11 @@
 package hiutrun.example.myweather.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -25,6 +29,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
      lateinit var viewModel: WeatherViewModel
      private var dailyAdapter: DailyAdapter = DailyAdapter()
      private var hourlyAdapter: HourlyAdapter = HourlyAdapter()
+        val TAG = "HomeFragment"
 
     companion object {
         @JvmStatic
@@ -38,7 +43,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel = (activity as MainActivity).viewModel
         tv_date.text = getDay()
 
@@ -63,9 +67,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewModel.getCurrentWeather(viewModel.cityName)
             pullToRefresh.isRefreshing = true
         }
-
+        viewModel.citiesList().observe(viewLifecycleOwner, Observer {
+            viewModel.updateCitiesName(it)
+        })
         im_add.setOnClickListener {
-            viewModel.getAllCitiesWeather()
+
+            if(viewModel.citiesName.value !=null){
+                viewModel.getAllCitiesWeather()
+            }
+
             replaceFragment(CityFragment.newInstance(),false)
         }
 
@@ -156,4 +166,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         fragmentTransition.add(R.id.frame_layout,fragment).addToBackStack(fragment.javaClass.simpleName)
         fragmentTransition.commit()
     }
+    
 }

@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import hiutrun.example.myweather.R
-import hiutrun.example.myweather.data.api.ApiHelper
-import hiutrun.example.myweather.data.api.RetrofitInstance
 import hiutrun.example.myweather.data.local.roomdatabase.WeatherDatabase
 import hiutrun.example.myweather.data.local.sharedpreferences.DataLocalManager
 import hiutrun.example.myweather.data.repository.WeatherRepository
@@ -39,5 +39,6 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.replace(R.id.frame_layout,fragment)
         fragmentTransition.commit()
+
     }
 }

@@ -27,6 +27,9 @@ class WeatherViewModel(
     private val _citiesName: MutableLiveData<ArrayList<String>> = MutableLiveData()
     private val _cityWeather: MutableLiveData<ArrayList<Resource<CurrentWeatherResponse>>> = MutableLiveData()
 
+    init {
+        _citiesName.postValue(ArrayList())
+    }
     var cityName = " "
 
     val dailyWeather: LiveData<Resource<WeatherForecastResponse>>
@@ -40,11 +43,6 @@ class WeatherViewModel(
 
     val citiesWeather: LiveData<ArrayList<Resource<CurrentWeatherResponse>>>
         get() = _cityWeather
-
-    init {
-        _citiesName.postValue(arrayListOf("Nha Trang", "Ninh Binh", "Ca Mau", "Nam Dinh","Ha Dong","Ha Tinh"))
-    }
-
 
     fun getCurrentWeather(cityName: String) = viewModelScope.launch {
         this@WeatherViewModel.cityName = cityName
@@ -161,4 +159,14 @@ class WeatherViewModel(
         }
         return Resource.Error(response.message())
     }
+
+    fun getCityWeather() = weatherRepository.getAll()
+
+    suspend fun insertCityWeather(list: List<CurrentWeatherResponse>) = weatherRepository.insertWeather(list)
+
+    suspend fun deleteCityWeather(id: Int) = weatherRepository.deleteWeather(id)
+
+    fun citiesList() = weatherRepository.getNameCities()
+
+    fun updateCitiesName(list: List<String>) = _citiesName.postValue(list as ArrayList<String>)
 }

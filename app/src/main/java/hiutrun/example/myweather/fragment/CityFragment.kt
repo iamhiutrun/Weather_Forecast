@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.SearchView
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.GridLayoutManager
 import hiutrun.example.myweather.R
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
@@ -14,6 +16,10 @@ import hiutrun.example.myweather.ui.main.view.MainActivity
 import hiutrun.example.myweather.ui.main.viewmodel.WeatherViewModel
 import hiutrun.example.myweather.utils.Resource
 import kotlinx.android.synthetic.main.fragment_setting.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CityFragment : Fragment(R.layout.fragment_setting) {
 
@@ -46,19 +52,33 @@ class CityFragment : Fragment(R.layout.fragment_setting) {
             removeFragment()
         }
 
-        viewModel.citiesWeather.observe(viewLifecycleOwner, Observer { response ->
-            var cities = ArrayList<CurrentWeatherResponse>()
-            for (i in response) {
-                when (i) {
-                    is Resource.Success -> {
-                        i.data?.let { cities.add(it) }
+        if(viewModel.hasInternetConnection()){
+            viewModel.citiesWeather.observe(viewLifecycleOwner, Observer { response ->
+                var cities = ArrayList<CurrentWeatherResponse>()
+                for (i in response) {
+                    when (i) {
+                        is Resource.Success -> {
+                            i.data?.let { cities.add(it) }
+                        }
+                        else -> null
                     }
-                    else -> null
                 }
-            }
-            cityAdapter.setData(cities)
-            rv_city.adapter = cityAdapter
-        })
+                cityAdapter.setData(cities)
+                CoroutineScope(Dispatchers.IO).launch {
+                    viewModel.insertCityWeather(cities)
+                }
+                rv_city.adapter = cityAdapter
+            })
+        }else{
+               viewModel.getCityWeather().observe(viewLifecycleOwner, Observer {
+                   cityAdapter.setData(it as ArrayList<CurrentWeatherResponse>)
+                   rv_city.adapter = cityAdapter
+               })
+
+
+        }
+
+
         search_view.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {

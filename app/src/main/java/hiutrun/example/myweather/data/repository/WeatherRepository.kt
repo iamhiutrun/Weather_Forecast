@@ -1,6 +1,5 @@
 package hiutrun.example.myweather.data.repository
 
-import hiutrun.example.myweather.data.api.ApiHelper
 import hiutrun.example.myweather.data.api.RetrofitInstance
 import hiutrun.example.myweather.data.local.roomdatabase.WeatherDatabase
 import hiutrun.example.myweather.data.models.current.CurrentWeatherResponse
@@ -14,9 +13,11 @@ class WeatherRepository(
     suspend fun getAllData(lat:String,lon:String) =
         RetrofitInstance.api.getAllData(lat,lon)
 
-    fun getAll():List<CurrentWeatherResponse> = db.getWeatherDao().getAll()
+    fun getAll()= db.getWeatherDao().getAll()
 
-    suspend fun deleteWeather(weatherResponse: CurrentWeatherResponse) = db.getWeatherDao().delete(weatherResponse)
+    fun getNameCities()  = db.getWeatherDao().getNameCities()
 
-    suspend fun insertWeather(weatherResponse: CurrentWeatherResponse) = db.getWeatherDao().insert(weatherResponse)
+    suspend fun deleteWeather(id: Int) = db.getWeatherDao().delete(id)
+
+    suspend fun insertWeather(list: List<CurrentWeatherResponse>) = db.getWeatherDao().insert(list)
 }
