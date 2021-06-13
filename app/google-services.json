@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "44424547994",
+    "project_id": "weather-313316",
+    "storage_bucket": "weather-313316.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44424547994:android:8ab17298bcf852b3cf9923",
+        "android_client_info": {
+          "package_name": "hiutrun.example.myweather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44424547994-506u63ihtipro3b1fg035cnsqfkog8td.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYvJu9YUm36074SHX66IYIV_0Bc_mwHQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44424547994-506u63ihtipro3b1fg035cnsqfkog8td.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
